@@ -15,20 +15,20 @@ public class SearchWord {
 		final Logger LOGGER = LogManager.getLogger(EditorPO.class);
 		// TODO Auto-generated method stub
 		List<String> getFiles = new ArrayList<>();
-		if (keyword.length() < 3) {
+		if (keyword == null || keyword.length() < 3) {
 			throw new IllegalArgumentException("Could not Search, Please Enter at least 3 letter to search");
 		}
 
 		for (Documents doc : docs) {
+			boolean foundInDoc = false;
 			for (Pages page : doc.getPages()) {
-				String pageContent = page.getPageContent();
-				if (pageContent.contains(keyword)) {
 
-					String[] words = pageContent.split("\\s+");
+				String pageContent = page.getPageContent();
+				String[] words = pageContent.split("\\s+");
 
 					for (int i = 0; i < words.length; i++) {
 						if (words[i].equalsIgnoreCase(keyword)) {
-
+							foundInDoc = true;
 							String prefixWord;
 							if (i > 0) {
 								prefixWord = words[i - 1];
@@ -39,8 +39,9 @@ public class SearchWord {
 							break;
 						}
 					}
+					if(foundInDoc){
 					break;
-				}
+					}
 			}
 		}
 		return getFiles;
