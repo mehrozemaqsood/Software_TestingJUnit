@@ -886,8 +886,7 @@ public class EditorPO extends JFrame {
 				savingStatusLabel.setVisible(false);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Unable to Save File");
-			logger.error("Unable to Save File");
+			logger.warn("AutoSave skipped: no file selected");
 		}
 	}
 
